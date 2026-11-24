@@ -46,6 +46,18 @@ The package holds five input sizes, from 640x360 to 1280x720, which the filter c
 
 The source is now transparent behind the cutoff, so whatever is below it in the scene shows through.
 
+## Without OBS
+
+[`webcam.py`](webcam.py) makes the same cut in a window of its own: the webcam, black behind the cutoff. It needs the model and [uv](https://docs.astral.sh/uv/), which installs what the script uses, and no OBS:
+
+```bash
+uv run webcam.py ~/Models/depthpro2-s_w4.mlpackage
+```
+
+The slider sets the cutoff in centimeters, and `q` or Esc quits. A number after the model chooses another camera; `0` is the default. From a package of several sizes the script takes 640x360.
+
+The window is a preview, not a camera that other apps can choose. The model runs once for every frame shown, so the window shows as many frames per second as the model manages.
+
 ## Speed
 
 The picture always keeps the source's size and OBS's frame rate. The model runs beside it and the mask follows as fast as the model allows. After its first 110 frames the plugin writes the model's time per frame to OBS's log (Help > Log Files > View Current Log), in a line that starts with `[depth-background-removal]`.
