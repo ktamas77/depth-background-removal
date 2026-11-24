@@ -9,3 +9,5 @@ checkpoints
 *.mlpackage
 out/
 *.log
+build/
+models/

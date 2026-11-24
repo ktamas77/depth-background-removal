@@ -1,0 +1,49 @@
+# Builds the OBS plugin on every push and pull request, and publishes it as a release for a tag v*.
+name: OBS plugin
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15 # Apple silicon
+    steps:
+      - uses: actions/checkout@v7
+      - name: Fetch the OBS the plugin links against
+        run: |
+          version=$(sed -n 's/^OBS_VERSION ?= //p' obs-plugin/Makefile)
+          curl -fsSL -o "$RUNNER_TEMP/obs.dmg" \
+            "https://github.com/obsproject/obs-studio/releases/download/$version/OBS-Studio-$version-macOS-Apple.dmg"
+          hdiutil attach -quiet -nobrowse -mountpoint "$RUNNER_TEMP/obs" "$RUNNER_TEMP/obs.dmg"
+      - name: Build
+        run: |
+          case "$GITHUB_REF" in refs/tags/v*) version="VERSION=${GITHUB_REF_NAME#v}" ;; esac
+          make -C obs-plugin zip OBS_APP="$RUNNER_TEMP/obs/OBS.app" $version
+      - uses: actions/upload-artifact@v7
+        with:
+          name: obs-depth-background-removal-macos-arm64
+          path: obs-plugin/build/obs-depth-background-removal-macos-arm64.zip
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: obs-depth-background-removal-macos-arm64
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" obs-depth-background-removal-macos-arm64.zip \
+            --repo "$GITHUB_REPOSITORY" --title "$GITHUB_REF_NAME" --generate-notes
