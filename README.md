@@ -1,10 +1,10 @@
-# Depth Background Removal for OBS
+# Depth Background Removal
 
-An [OBS Studio](https://obsproject.com) filter for Apple silicon Macs that removes the background of a camera, or of any other source, by distance: everything farther than a cutoff becomes transparent. The distance comes from Apple's [Depth Pro 2](https://github.com/apple-aiml-research/ml-depth-pro-2), a model that estimates the depth of every pixel from an ordinary camera picture, run on the Mac with Core ML.
+A third-party filter plugin for [OBS Studio](https://obsproject.com) on Apple silicon Macs. It removes the background of a camera, or of any other source, by distance: everything farther than a cutoff becomes transparent. The distance comes from Apple's [Depth Pro 2](https://github.com/apple-aiml-research/ml-depth-pro-2), a model that estimates the depth of every pixel from an ordinary camera picture, run on the Mac with Core ML.
 
 A filter that looks for people keeps people. This one keeps whatever is near: you, and also the thing you hold up to the camera.
 
-This is an independent project, not an Apple one. The repository is a copy of Apple's Depth Pro 2 code with the plugin added in [`obs-plugin/`](obs-plugin). The Python package stays because it exports the models the plugin runs.
+This is an independent project: it is not part of OBS or made by the OBS Project, and it is not an Apple project. The repository is a copy of Apple's Depth Pro 2 code with the plugin added in [`obs-plugin/`](obs-plugin). The Python package stays because it exports the models the plugin runs.
 
 ## Requirements
 
@@ -50,7 +50,9 @@ Measured in OBS 33.0.3 on a MacBook Pro with an M1 Max, with a 1280x720 camera o
 
 | Model | Input size | Model time per frame | OBS |
 |---|---|---|---|
-| S, window 4 | 640x360 | about 32 ms (28 to 38 over five runs) | 30 fps, 1.6 to 1.8 ms per rendered frame |
+| S, window 4 | 640x360 | about 34 ms (28 to 41 over eight runs) | 30 fps, 1.6 to 1.8 ms per rendered frame |
+
+So on that Mac the mask follows at 25 to 30 frames per second, depending on what else the machine is doing.
 
 The same model at 854x480 took 70 ms per frame on that Mac in a test outside OBS, so the mask would follow at about 14 frames per second. [demo/README.md](demo/README.md) has Apple's timings of every model and size on an M4 Max.
 
