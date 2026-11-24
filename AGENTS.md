@@ -21,6 +21,8 @@ the filter running in OBS.
 
 - `plugin/plugin.m`: the whole filter, in Objective-C against the OBS C API.
 - `plugin/depth_mask.effect`: the shader that fades the picture behind the cutoff.
+- `webcam.py`: the same cut without OBS, for `uv run webcam.py <model>`: a camera in an OpenCV window,
+  the model run through coremltools. Its dependencies are in its header, not in `pyproject.toml`.
 - `plugin/Makefile`: fetches the OBS headers, builds, signs ad hoc, installs, zips.
 - `.github/workflows/plugin.yml`: builds on every push and pull request, releases on a tag `v*`.
 - `src/depth_pro_2/`, `demo/export/`: Apple's Python package and Core ML exporter, unchanged.
