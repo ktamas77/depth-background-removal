@@ -60,7 +60,7 @@ static const float focalOverWidth = 0.7f;
 - (instancetype)init
 {
 	if ((self = [super init])) {
-		queue = dispatch_queue_create("obs-depth-background-removal", DISPATCH_QUEUE_SERIAL);
+		queue = dispatch_queue_create("depth-background-removal", DISPATCH_QUEUE_SERIAL);
 		pthread_mutex_init(&lock, NULL);
 	}
 	return self;

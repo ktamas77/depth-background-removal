@@ -4,7 +4,9 @@ A third-party filter plugin for [OBS Studio](https://obsproject.com) on Apple si
 
 A filter that looks for people keeps people. This one keeps whatever is near: you, and also the thing you hold up to the camera.
 
-This is an independent project: it is not part of OBS or made by the OBS Project, and it is not an Apple project. The repository is a copy of Apple's Depth Pro 2 code with the plugin added in [`obs-plugin/`](obs-plugin). The Python package stays because it exports the models the plugin runs.
+This is an independent project: it is not part of OBS or made by the OBS Project, and it is not an Apple project. The repository is a copy of Apple's Depth Pro 2 code with the plugin added in [`plugin/`](plugin). The Python package stays because it exports the models the plugin runs.
+
+[Depth RGB Trails](https://github.com/ktamas77/depth-rgb-trails) is a second filter on the same model: it keeps the background and trails the foreground with red, blue and green delayed copies.
 
 ## Requirements
 
@@ -13,15 +15,17 @@ This is an independent project: it is not part of OBS or made by the OBS Project
 
 ## Install
 
-1. Download `obs-depth-background-removal-macos-arm64.zip` from the [latest release](https://github.com/ktamas77/obs-depth-background-removal/releases/latest) and unzip it.
-2. Move `obs-depth-background-removal.plugin` into `~/Library/Application Support/obs-studio/plugins/`, creating the folder if it is missing.
+1. Download `depth-background-removal-macos-arm64.zip` from the [latest release](https://github.com/ktamas77/depth-background-removal/releases/latest) and unzip it.
+2. Move `depth-background-removal.plugin` into `~/Library/Application Support/obs-studio/plugins/`, creating the folder if it is missing.
 3. The plugin is not notarized, and macOS marks downloads as quarantined, so it may refuse to let OBS load it. Clear the mark:
 
    ```bash
-   xattr -dr com.apple.quarantine ~/Library/Application\ Support/obs-studio/plugins/obs-depth-background-removal.plugin
+   xattr -dr com.apple.quarantine ~/Library/Application\ Support/obs-studio/plugins/depth-background-removal.plugin
    ```
 
 4. Restart OBS.
+
+Release 0.1.0 was named `obs-depth-background-removal.plugin`. If you installed it, delete that one: OBS would otherwise find the same filter twice.
 
 ## Get a model
 
@@ -69,10 +73,10 @@ The same model at 854x480 took 70 ms per frame on that Mac in a test outside OBS
 With Xcode's command line tools and OBS installed in `/Applications`:
 
 ```bash
-make -C obs-plugin install
+make -C plugin install
 ```
 
-This fetches the headers of the OBS version named in [`obs-plugin/Makefile`](obs-plugin/Makefile), builds the plugin against the `libobs` inside `OBS.app`, and copies it into OBS's plugin folder. Restart OBS to load it.
+This fetches the headers of the OBS version named in [`plugin/Makefile`](plugin/Makefile), builds the plugin against the `libobs` inside `OBS.app`, and copies it into OBS's plugin folder. Restart OBS to load it.
 
 ## Releases
 
@@ -98,6 +102,6 @@ The model is from this paper:
 
 ## License
 
-- The plugin, everything in [`obs-plugin/`](obs-plugin), is under the GNU General Public License, version 2 or later ([obs-plugin/LICENSE](obs-plugin/LICENSE)), as OBS is.
+- The plugin, everything in [`plugin/`](plugin), is under the GNU General Public License, version 2 or later ([plugin/LICENSE](plugin/LICENSE)), as OBS is.
 - Apple's code is under [LICENSE](LICENSE), with the third-party code it builds on listed in [ACKNOWLEDGEMENTS](ACKNOWLEDGEMENTS).
 - The model weights are under [LICENSE_MODEL](LICENSE_MODEL), which permits use "exclusively for Research Purposes", defined as "non-commercial scientific research and academic development activities". The plugin includes no weights; whether your use of the model fits that license is yours to check.

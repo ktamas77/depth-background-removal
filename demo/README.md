@@ -1,6 +1,6 @@
 # Core ML export
 
-`python -m demo.export` writes the Core ML packages that the [OBS plugin](../obs-plugin) runs. It is
+`python -m demo.export` writes the Core ML packages that the [plugin](../plugin) runs. It is
 Apple's exporter, unchanged; the Mac demo app it came with is not part of this repository.
 
 ```bash

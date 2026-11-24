@@ -6,7 +6,7 @@
 OBS_VERSION ?= 33.0.3
 VERSION ?= 0.0.0
 OBS_APP ?= /Applications/OBS.app
-NAME := obs-depth-background-removal
+NAME := depth-background-removal
 BUNDLE := build/$(NAME).plugin
 OBS_SRC := build/obs-studio
 SIMDE := build/simde
@@ -39,7 +39,7 @@ build/include/obsconfig.h:
 
 install: $(BUNDLE)
 	mkdir -p "$(PLUGINS)"
-	rm -rf "$(PLUGINS)/$(NAME).plugin"
+	rm -rf "$(PLUGINS)/$(NAME).plugin" "$(PLUGINS)/obs-$(NAME).plugin" # the second is the name of release 0.1.0
 	cp -R $(BUNDLE) "$(PLUGINS)/"
 
 zip: $(BUNDLE)

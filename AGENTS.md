@@ -3,12 +3,12 @@
 An OBS Studio filter for Apple silicon Macs that makes a source transparent behind a cutoff distance,
 with depth from Apple's Depth Pro 2 run through Core ML. The README has the installation, the use and
 the limits; read it first. The repository is Apple's Depth Pro 2 code (the Python package and the
-Core ML exporter, kept as upstream) with the plugin added in `obs-plugin/`.
+Core ML exporter, kept as upstream) with the plugin added in `plugin/`.
 
 ## Build and check
 
 ```bash
-make -C obs-plugin install    # builds against /Applications/OBS.app, copies the plugin into OBS's plugin folder
+make -C plugin install    # builds against /Applications/OBS.app, copies the plugin into OBS's plugin folder
 uv run --extra coreml python -m demo.export stream -m depthpro2-s -s 360x640 -w 4    # a model to run
 ```
 
@@ -19,10 +19,10 @@ the filter running in OBS.
 
 ## Code
 
-- `obs-plugin/plugin.m`: the whole filter, in Objective-C against the OBS C API.
-- `obs-plugin/depth_mask.effect`: the shader that fades the picture behind the cutoff.
-- `obs-plugin/Makefile`: fetches the OBS headers, builds, signs ad hoc, installs, zips.
-- `.github/workflows/obs-plugin.yml`: builds on every push and pull request, releases on a tag `v*`.
+- `plugin/plugin.m`: the whole filter, in Objective-C against the OBS C API.
+- `plugin/depth_mask.effect`: the shader that fades the picture behind the cutoff.
+- `plugin/Makefile`: fetches the OBS headers, builds, signs ad hoc, installs, zips.
+- `.github/workflows/plugin.yml`: builds on every push and pull request, releases on a tag `v*`.
 - `src/depth_pro_2/`, `demo/export/`: Apple's Python package and Core ML exporter, unchanged.
 
 ## Facts not in the README

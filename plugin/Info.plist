@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>obs-depth-background-removal</string>
+	<string>depth-background-removal</string>
 	<key>CFBundleIdentifier</key>
-	<string>io.github.ktamas77.obs-depth-background-removal</string>
+	<string>io.github.ktamas77.depth-background-removal</string>
 	<key>CFBundleExecutable</key>
-	<string>obs-depth-background-removal</string>
+	<string>depth-background-removal</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
